@@ -3,6 +3,7 @@
   "description": "cPanel JSON-API Client Class",
   "minimum-stability": "stable",
   "license": "proprietary",
+  "version": "1.1.0",
   "require": {
     "php": ">=5.2.0"
   },

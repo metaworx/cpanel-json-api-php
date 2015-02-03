@@ -29,10 +29,12 @@
 * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 * POSSIBILITY OF SUCH DAMAGE.
 *
-* Version: 1.0.13
-* Last updated: 19 November 2012
 *
 * Changes
+*
+* 1.1.0 and onwards:
+* See Git log for changes.
+* See composer file for version information
 *
 * 1.0.13:
 * Tidy
@@ -110,7 +112,7 @@
 *
 * Making Calls with this class are done in the following steps:
 *
-* 1.) Instaniating the class:
+* 1.) Instantiating the class:
 * $xmlapi = new xmlapi($host);
 *
 * 2.) Setting access credentials within the class via either set_password or set_hash:
@@ -124,7 +126,7 @@
 * @package xmlapi
 * @copyright 2012 cPanel, Inc.
 * @license http://sdk.cpanel.net/license/bsd.html
-* @version Release: 1.0.13
+* @version see composer.json for version information
 * @link http://twiki.cpanel.net/twiki/bin/view/AllDocumentation/AutomationIntegration/XmlApi
 * @since Class available since release 0.1
 **/
@@ -2446,6 +2448,12 @@ class xmlapi
         return $this->api2_query($username, 'Park', 'listaddondomains');
     }
 
+    // This API function displays a list of all domains related to this account.
+    public function listalldomains($username)
+    {
+        return $this->api2_query($username, 'DomainInfo', 'list_domains');
+    }
+
     // This API function displays a list of all selected stats for a specific user.
     public function stat($username, $args = null)
     {
@@ -2465,6 +2473,52 @@ class xmlapi
         }
 
         return $this->api2_query($username, 'StatsBar', 'stat', $values);
+    }
+
+    // This API function add as addon a domain onto this user's account
+    public function addaddon($username, $newdomain, $subdomain, $ftpPass, $dir = null)
+    {
+        if ( (!isset($username)) && (!isset($newdomain)) ) {
+            error_log("addaddon requires that a username, new domain, subdomain and ftp password are passed to it");
+
+            return false;
+        }
+
+        if(empty($dir)) {
+            $dir = "public_html/" . $newdomain;
+        }
+
+        $args = array(
+            'newdomain' => $newdomain,
+            'dir' => $dir,
+            'subdomain' => $subdomain,
+            'pass' => $ftpPass
+        );
+
+        return $this->api2_query($username, "AddonDomain", "addaddondomain", $args);
+    }
+
+    // This API function remove an addon domain from this user's account
+    public function deladdon($username, $newdomain, $subdomain, $maindomain = null)
+    {
+        if ( (!isset($username)) && (!isset($newdomain)) ) {
+            error_log("deladdon requires that a username, new domain and subdomain are passed to it");
+
+            return false;
+        }
+
+        if(!$maindomain) {
+            $alldomains = $this->listalldomains($username);
+            $maindomain = $alldomains['main_domain'];
+        }
+
+        // follow the pattern for subdomain: subdomain_maindomain.com
+        $args = array(
+            'newdomain' => $newdomain,
+            'subdomain' => $subdomain . '_' . $maindomain
+        );
+
+        return $this->api2_query($username, "AddonDomain", "deladdondomain", $args);
     }
 
 }
