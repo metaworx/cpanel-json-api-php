@@ -1,4 +1,4 @@
-= cPanel API PHP Class
+# cPanel API PHP Class
 
 This is an obsolete package for interacting with the cPanel & WHM API.  It is no
 longer updated.
