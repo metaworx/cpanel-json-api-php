@@ -1,0 +1,23 @@
+{
+  "name": "metaworx/cpanel-json-api-php",
+  "description": "cPanel JSON-API Client Class",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "require": {
+    "php": ">=5.2.0"
+  },
+  "authors": [
+    {
+      "name": "cPanel, Inc"
+    },
+    {
+      "name": "Martin Rüegg",
+      "email": "martin.rueegg@metaworx.ch"
+    }
+  ],
+  "autoload": {
+    "psr-0": {
+      "xmlapi": ""
+    }
+  }
+}
