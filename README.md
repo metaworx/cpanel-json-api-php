@@ -1,15 +1,15 @@
 #Installation#
  
- 1. Append repository to your composer.json
+ 1. Append a repository to your composer.json
 	
 	 	{
-         		"repositories": [
-			    {
-				"type": "github",
-				"url":  "https://github.com/CpanelInc/xmlapi-php.git"
-			    }
-			],
-        	}
+            "repositories": [
+                {
+                "type": "github",
+                "url":  "https://github.com/CpanelInc/xmlapi-php.git"
+                }
+            ]
+        }
         	
  1.  Setup package
  
