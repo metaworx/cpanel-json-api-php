@@ -1,6 +1,6 @@
 {
-  "name": "CpanelInc/xmlapi-php",
-  "description": "cPanel XMLAPI Client Class",
+  "name": "metaworx/cpanel-json-api-php",
+  "description": "cPanel JSON-API Client Class",
   "minimum-stability": "stable",
   "license": "proprietary",
   "require": {
@@ -9,9 +9,15 @@
   "authors": [
     {
       "name": "cPanel, Inc"
+    },
+    {
+      "name": "Martin Rüegg",
+      "email": "martin.rueegg@metaworx.ch"
     }
   ],
   "autoload": {
-    "psr-0": { "xmlapi": "" }
+    "psr-0": {
+      "xmlapi": ""
+    }
   }
 }
